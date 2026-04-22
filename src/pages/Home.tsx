@@ -351,9 +351,9 @@ function About() {
               letterSpacing: '-0.02em',
             }}
           >
-            Building scalable apps at the&nbsp;
+            Building scalable apps at the&nbsp;<br />
             <span className="text-primary">intersection</span>
-            &nbsp;of web, mobile, and&nbsp;AI.
+            &nbsp;<br />of web, mobile, and&nbsp;AI.
           </h2>
         </div>
 
@@ -372,7 +372,7 @@ function About() {
             My stack spans React, Node.js, TypeScript, React Native, Flutter, and PostgreSQL. I care as much about secure backend architecture and API design as I do about clean, responsive UI — writing maintainable code that scales and communicating clearly every step of the way.
           </p>
 
-          <div className="flex gap-6 mt-12">
+          <div className="flex flex-wrap gap-6 mt-12">
             {[
               { number: '6+', label: 'Years of Experience' },
               { number: '40+', label: 'Projects Shipped' },
@@ -590,13 +590,14 @@ function Contact() {
             style={{
               fontFamily: 'var(--font-display)',
               fontStyle: 'italic',
-              fontWeight: 700,
+              fontWeight: 400,
               fontSize: 'clamp(2.5rem, 5vw, 5rem)',
               letterSpacing: '-0.02em',
             }}
           >
             Let's build&nbsp;
-            <span className="text-primary">something</span>
+            <br />
+            <span className="text-primary">something</span><br />
             &nbsp;great.
           </h2>
           <p
@@ -622,7 +623,7 @@ function Contact() {
                 </span>
                 <a
                   href={href}
-                  className="text-on-surface text-sm hover:text-primary transition-colors duration-200"
+                  className="text-on-surface text-sm hover:text-primary transition-colors duration-200 wrap-anywhere"
                   style={{
                     fontFamily: 'var(--font-body)',
                     textDecoration: 'none',
@@ -637,80 +638,61 @@ function Contact() {
           </div>
         </div>
 
-        {/* Right – form */}
-        <div className="bg-surface-low p-8">
-          <p
-            className="text-on-surface-variant text-xs tracking-widest uppercase mb-8"
-            style={{ fontFamily: 'var(--font-label)' }}
-          >
-            Send a Message
-          </p>
-          <form className="flex flex-col gap-8" onSubmit={(e) => e.preventDefault()}>
-            <div>
-              <label
-                className="block text-on-surface-variant text-xs tracking-widest uppercase mb-2"
-                style={{ fontFamily: 'var(--font-label)' }}
-              >
-                Name
-              </label>
-              <input
-                type="text"
-                placeholder="Your name"
-                className="w-full bg-transparent text-on-surface text-sm pb-2 outline-none placeholder:text-on-surface-variant/40"
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  borderBottom: '1px solid rgba(248,246,241,0.15)',
-                }}
-                onFocus={(e) => (e.target.style.borderBottomColor = '#F1F27C')}
-                onBlur={(e) => (e.target.style.borderBottomColor = 'rgba(248,246,241,0.15)')}
-              />
-            </div>
-            <div>
-              <label
-                className="block text-on-surface-variant text-xs tracking-widest uppercase mb-2"
-                style={{ fontFamily: 'var(--font-label)' }}
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="w-full bg-transparent text-on-surface text-sm pb-2 outline-none placeholder:text-on-surface-variant/40"
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  borderBottom: '1px solid rgba(248,246,241,0.15)',
-                }}
-                onFocus={(e) => (e.target.style.borderBottomColor = '#F1F27C')}
-                onBlur={(e) => (e.target.style.borderBottomColor = 'rgba(248,246,241,0.15)')}
-              />
-            </div>
-            <div>
-              <label
-                className="block text-on-surface-variant text-xs tracking-widest uppercase mb-2"
-                style={{ fontFamily: 'var(--font-label)' }}
-              >
-                Message
-              </label>
-              <textarea
-                rows={4}
-                placeholder="Tell me about your project..."
-                className="w-full bg-transparent text-on-surface text-sm pb-2 outline-none resize-none placeholder:text-on-surface-variant/40"
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  borderBottom: '1px solid rgba(248,246,241,0.15)',
-                }}
-                onFocus={(e) => (e.target.style.borderBottomColor = '#F1F27C')}
-                onBlur={(e) => (e.target.style.borderBottomColor = 'rgba(248,246,241,0.15)')}
-              />
-            </div>
-            <button
-              type="submit"
-              className="bg-primary text-on-primary px-8 py-3 text-sm tracking-widest uppercase font-semibold hover:bg-on-surface transition-colors duration-200 self-start"
-              style={{ fontFamily: 'var(--font-label)' }}
+        {/* Right – booking card */}
+        <div className="bg-surface-low p-8 md:p-10 border border-on-surface-variant/10">
+          <div className="flex flex-col h-full">
+            <h3
+              className="text-on-surface mb-4"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontStyle: 'italic',
+                fontWeight: 400,
+                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                letterSpacing: '-0.02em',
+              }}
             >
-              Send Message
-            </button>
-          </form>
+              Schedule a strategy call.
+            </h3>
+
+            <p
+              className="text-on-surface-variant leading-relaxed text-base mb-8"
+              style={{ fontFamily: 'var(--font-body)' }}
+            >
+              Pick a time that works for you and we can talk through your product, timeline, and the best path to launch.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+              {[
+                '30-minute intro call',
+                'Product and scope review',
+                'Timezone-friendly scheduling',
+                'Follow-up notes after the call',
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="border border-on-surface-variant/12 px-4 py-4 text-sm text-on-surface"
+                  style={{ fontFamily: 'var(--font-body)' }}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center mt-auto">
+              <a
+                href="https://calendly.com/ajsammy"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-3 text-primary text-sm tracking-widest uppercase font-semibold hover:text-on-surface transition-colors duration-200"
+                style={{ fontFamily: 'var(--font-label)' }}
+              >
+                Book a call
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 13L13 3M13 3H6M13 3V10" stroke="currentColor" strokeWidth="1.5" />
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
