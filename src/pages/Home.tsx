@@ -1,5 +1,6 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { projects, experience, skills } from '../data';
+import { projects, skills } from '../data';
 
 /* ─── Star SVG bullet ──────────────────────────────────────────── */
 function StarBullet({ size = 14, color = '#F1F27C' }: { size?: number; color?: string }) {
@@ -22,31 +23,100 @@ function StarBullet({ size = 14, color = '#F1F27C' }: { size?: number; color?: s
 
 /* ─── Nav ──────────────────────────────────────────────────────── */
 function Nav() {
-  const links = ['About', 'Projects', 'Experience', 'Contact'];
+  const links = ['About', 'Projects', 'Contact'];
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isNavVisible, setIsNavVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Show nav if scrolled to top
+      if (currentScrollY < 50) {
+        setIsNavVisible(true);
+      }
+      // Hide nav when scrolling down
+      else if (currentScrollY > lastScrollY) {
+        setIsNavVisible(false);
+      }
+      // Show nav when scrolling up
+      else if (currentScrollY < lastScrollY) {
+        setIsNavVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
+
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50"
+      className="fixed top-0 left-0 right-0 z-50 transition-transform duration-300"
       style={{
         backgroundColor: 'rgba(20,19,19,0.72)',
         backdropFilter: 'blur(24px)',
         WebkitBackdropFilter: 'blur(24px)',
         borderBottom: '1px solid rgba(248,246,241,0.06)',
+        transform: isNavVisible ? 'translateY(0)' : 'translateY(-100%)',
       }}
     >
-      <nav className="max-w-screen-xl mx-auto px-8 h-16 flex items-center justify-between">
+      <nav className="max-w-screen-xl mx-auto px-8 min-h-16 flex items-center justify-between relative">
         <span
-          className="text-primary text-sm tracking-widest uppercase"
-          style={{ fontFamily: 'var(--font-label)', fontWeight: 600, letterSpacing: '0.18em' }}
+          className="text-whitetext-sm tracking-widest uppercase"
+          style={{ fontFamily: 'var(--font-label)', fontWeight: 100, fontStyle: '', letterSpacing: '0.0em' }}
         >
-          A. Samuel
+          Ajiboye Samuel.
         </span>
-        <ul className="flex gap-10">
+
+        <button
+          type="button"
+          className="md:hidden inline-flex items-center justify-center w-10 h-10 text-on-surface hover:text-primary transition-colors duration-200"
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-nav-menu"
+          aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            {isMenuOpen ? (
+              <path
+                d="M5 5L15 15M15 5L5 15"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+              />
+            ) : (
+              <path
+                d="M3 5H17M3 10H17M3 15H17"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+              />
+            )}
+          </svg>
+        </button>
+
+        <ul className="hidden md:flex gap-10">
           {links.map((l) => (
             <li key={l}>
               <a
                 href={`#${l.toLowerCase()}`}
-                className="text-on-surface-variant hover:text-primary transition-colors duration-200 text-sm tracking-widest uppercase"
+                className="text-on-surface-variant hover:text-primary transition-colors duration-200 text-xs tracking-widest uppercase"
                 style={{ fontFamily: 'var(--font-label)', letterSpacing: '0.14em' }}
               >
                 {l}
@@ -54,6 +124,27 @@ function Nav() {
             </li>
           ))}
         </ul>
+
+        <div
+          id="mobile-nav-menu"
+          className={`md:hidden absolute top-full left-0 right-0 bg-surface/95 backdrop-blur-xl border-b border-on-surface-variant/15 transition-all duration-200 overflow-hidden ${isMenuOpen ? 'max-h-80 opacity-100 py-4' : 'max-h-0 opacity-0 py-0 pointer-events-none'}`}
+          aria-hidden={!isMenuOpen}
+        >
+          <ul className="px-8 flex flex-col gap-4">
+            {links.map((l) => (
+              <li key={l}>
+                <a
+                  href={`#${l.toLowerCase()}`}
+                  className="block text-on-surface-variant hover:text-primary transition-colors duration-200 text-sm tracking-widest uppercase py-2"
+                  style={{ fontFamily: 'var(--font-label)', letterSpacing: '0.14em' }}
+                  onClick={closeMenu}
+                >
+                  {l}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </nav>
     </header>
   );
@@ -63,17 +154,24 @@ function Nav() {
 function Hero() {
   return (
     <section
-      className="relative min-h-screen flex flex-col justify-end pb-24 px-8 overflow-hidden"
+      className="relative h-screen max-h-187.5 flex flex-col justify-end px-8 overflow-hidden"
       style={{
-        background: 'radial-gradient(ellipse 80% 60% at 50% 0%, #242322 0%, #141313 70%)',
+        background:
+          "radial-gradient(ellipse 80% 60% at 50% 0%, #242322 0%, #141313 70%)",
       }}
     >
       {/* Top metadata bar */}
       <div className="absolute top-20 left-0 right-0 px-8 pt-8 flex justify-between items-start max-w-screen-xl mx-auto w-full">
-        <div style={{ fontFamily: 'var(--font-label)' }} className="text-on-surface-variant text-xs tracking-widest uppercase">
+        <div
+          style={{ fontFamily: "var(--font-label)" }}
+          className="text-on-surface-variant text-xs max-sm:text-[10px] tracking-widest uppercase"
+        >
           Portfolio // 2026
         </div>
-        <div style={{ fontFamily: 'var(--font-label)' }} className="text-on-surface-variant text-xs tracking-widest uppercase text-right">
+        <div
+          style={{ fontFamily: "var(--font-label)" }}
+          className="text-on-surface-variant text-xs max-sm:text-[10px] tracking-widest uppercase text-right"
+        >
           Lagos, Nigeria
           <br />
           Available for hire
@@ -85,30 +183,38 @@ function Hero() {
         <StarBullet size={64} color="#F1F27C" />
       </div>
 
-      <img src="/my-picture-removebg-preview.png" alt="Ajiboye Samuel" className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[500px] h-[500px] object-cover" style={{ zIndex: 10 }} />
+      <img
+        src="/my-picture-removebg-preview.png"
+        alt="Ajiboye Samuel"
+        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[500px] h-[500px] max-md:w-[300px] max-md:h-[300px] object-cover"
+        style={{ zIndex: 10 }}
+      />
 
       <div className="max-w-screen-xl mx-auto w-full">
         {/* Large display heading */}
         <p
-          className="text-on-surface-variant mb-4 tracking-widest uppercase text-sm"
-          style={{ fontFamily: 'var(--font-label)' }}
+          className="absolute top-15 left-0 right-0 px-8 pt-8 flex justify-between items-start max-w-screen-xl mx-auto w-full text-on-surface-variant max-sm:text-[10px] text-xs tracking-widest uppercase"
+          style={{ fontFamily: "var(--font-label)" }}
         >
           Software Developer
         </p>
 
         {/* Double-layer "Ajiboye" — solid behind image, stroke in front */}
-        <div className="relative mb-2 ml-10" style={{ lineHeight: 1 }}>
+        <div
+          className="relative mb-2 -top-30 max-sm:-top-47"
+          style={{ lineHeight: 1 }}
+        >
           {/* Layer 1: solid fill — sits behind the image */}
           <h1
             className="leading-none"
             style={{
-              fontFamily: 'var(--font-display)',
-              fontStyle: 'italic',
+              fontFamily: "var(--font-display)",
+              fontStyle: "italic",
               fontWeight: 700,
-              fontSize: 'clamp(4rem, 12vw, 10rem)',
-              letterSpacing: '-0.02em',
-              color: '#F1F27C',
-              position: 'relative',
+              fontSize: "clamp(4rem, 12vw, 10rem)",
+              letterSpacing: "-0.02em",
+              color: "#F1F27C",
+              position: "relative",
               zIndex: 5,
             }}
           >
@@ -119,14 +225,14 @@ function Hero() {
             aria-hidden="true"
             className="leading-none pointer-events-none"
             style={{
-              fontFamily: 'var(--font-display)',
-              fontStyle: 'italic',
+              fontFamily: "var(--font-display)",
+              fontStyle: "italic",
               fontWeight: 700,
-              fontSize: 'clamp(4rem, 12vw, 10rem)',
-              letterSpacing: '-0.02em',
-              color: 'transparent',
-              WebkitTextStroke: '1.5px #F1F27C',
-              position: 'absolute',
+              fontSize: "clamp(4rem, 12vw, 10rem)",
+              letterSpacing: "-0.02em",
+              color: "transparent",
+              WebkitTextStroke: "1.5px #F1F27C",
+              position: "absolute",
               top: 0,
               left: 0,
               zIndex: 15,
@@ -136,17 +242,21 @@ function Hero() {
           </h1>
         </div>
         {/* Double-layer "Samuel." — solid behind image, stroke in front, right-aligned */}
-        <div className="relative mb-12 text-right" style={{ lineHeight: 1 }}>
+        <div
+          className="relative mb-12 -top-30 max-sm:-top-47 text-right"
+          style={{ lineHeight: 1 }}
+        >
           {/* Layer 1: solid fill — sits behind the image */}
           <h1
             className="leading-none"
             style={{
-              fontFamily: 'var(--font-display)',
+              fontFamily: "var(--font-display)",
+              fontStyle: "italic",
               fontWeight: 700,
-              fontSize: 'clamp(4rem, 12vw, 10rem)',
-              letterSpacing: '-0.02em',
-              color: '#E8E6E1',
-              position: 'relative',
+              fontSize: "clamp(4rem, 12vw, 10rem)",
+              letterSpacing: "-0.02em",
+              color: "#F1F27C",
+              position: "relative",
               zIndex: 5,
             }}
           >
@@ -157,13 +267,14 @@ function Hero() {
             aria-hidden="true"
             className="leading-none pointer-events-none"
             style={{
-              fontFamily: 'var(--font-display)',
+              fontFamily: "var(--font-display)",
+              fontStyle: "italic",
               fontWeight: 700,
-              fontSize: 'clamp(4rem, 12vw, 10rem)',
-              letterSpacing: '-0.02em',
-              color: 'transparent',
-              WebkitTextStroke: '1.5px #E8E6E1',
-              position: 'absolute',
+              fontSize: "clamp(4rem, 12vw, 10rem)",
+              letterSpacing: "-0.02em",
+              color: "transparent",
+              WebkitTextStroke: "1.5px #F1F27C",
+              position: "absolute",
               top: 0,
               left: 0,
               right: 0,
@@ -174,28 +285,47 @@ function Hero() {
           </h1>
         </div>
 
-        <div className="flex items-end justify-between flex-wrap gap-8">
-          <p
-            className="text-on-surface-variant max-w-lg text-lg leading-relaxed"
-            style={{ fontFamily: 'var(--font-body)' }}
-          >
-            I craft precise, performant digital experiences — from design systems to distributed infrastructure. Six years building products people rely on every day.
-          </p>
-
-          <div className="flex gap-4">
+        <div className="flex items-end w-full max-md:bottom-[400px] relative z-20">
+          <div className="flex w-full justify-between absolute max-md:bottom-0">
             <a
               href="#projects"
-              className="bg-primary text-on-primary px-8 py-3 text-sm tracking-widest uppercase font-semibold hover:bg-on-surface transition-colors duration-200"
-              style={{ fontFamily: 'var(--font-label)' }}
+              className="inline-flex items-center gap-3 text-primary py-3 max-sm:text-xs text-sm tracking-widest uppercase font-semibold hover:text-on-surface transition-colors duration-200"
+              style={{ fontFamily: "var(--font-label)" }}
             >
               View Work
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M3 13L13 3M13 3H6M13 3V10"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+              </svg>
             </a>
             <a
               href="#contact"
-              className="border border-on-surface-variant/30 text-on-surface px-8 py-3 text-sm tracking-widest uppercase hover:border-primary hover:text-primary transition-colors duration-200"
-              style={{ fontFamily: 'var(--font-label)' }}
+              className="inline-flex items-center gap-3 text-on-surface py-3 max-md:top-[15px] relative  max-sm:text-xs text-sm tracking-widest uppercase hover:text-primary transition-colors duration-200"
+              style={{ fontFamily: "var(--font-label)" }}
             >
               Get in Touch
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M3 13L13 3M13 3H6M13 3V10"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+              </svg>
             </a>
           </div>
         </div>
@@ -211,41 +341,35 @@ function About() {
       <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         {/* Left – label + headline */}
         <div>
-          <p
-            className="text-primary text-xs tracking-widest uppercase mb-8"
-            style={{ fontFamily: 'var(--font-label)' }}
-          >
-            ✦ &nbsp; About
-          </p>
           <h2
             className="text-on-surface leading-tight"
             style={{
               fontFamily: 'var(--font-display)',
               fontStyle: 'italic',
-              fontWeight: 700,
+              fontWeight: 400,
               fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
               letterSpacing: '-0.02em',
             }}
           >
-            Building at the&nbsp;
+            Building scalable apps at the&nbsp;
             <span className="text-primary">intersection</span>
-            &nbsp;of craft and&nbsp;scale.
+            &nbsp;of web, mobile, and&nbsp;AI.
           </h2>
         </div>
 
         {/* Right – bio */}
-        <div className="lg:pt-20">
+        <div className="">
           <p
             className="text-on-surface leading-relaxed mb-6 text-lg"
             style={{ fontFamily: 'var(--font-body)' }}
           >
-            I'm a software developer with six years of experience shipping products across fintech, SaaS, and developer tooling. I've worked at companies like Stripe, Intercom, and Vercel — each role deepening my conviction that the best software is both technically rigorous and quietly beautiful.
+            I'm a full-stack web and mobile app developer who helps startups and companies build scalable products — from MVP to production. I deliver high-performance web apps, cross-platform mobile apps, and AI-powered features that help businesses launch faster, operate efficiently, and grow confidently.
           </p>
           <p
             className="text-on-surface-variant leading-relaxed text-base"
             style={{ fontFamily: 'var(--font-body)' }}
           >
-            My approach sits at the intersection of engineering and design. I care about API ergonomics as much as pixel fidelity. I write code that other engineers enjoy reading, and I build interfaces that users trust without thinking about.
+            My stack spans React, Node.js, TypeScript, React Native, Flutter, and PostgreSQL. I care as much about secure backend architecture and API design as I do about clean, responsive UI — writing maintainable code that scales and communicating clearly every step of the way.
           </p>
 
           <div className="flex gap-6 mt-12">
@@ -279,17 +403,17 @@ function About() {
 /* ─── Skills ─────────────────────────────────────────────────────── */
 function Skills() {
   return (
-    <section id="skills" className="bg-surface py-32 px-8">
+    <section id="skills" className="bg-primary py-32 px-8">
       <div className="max-w-screen-xl mx-auto">
-        <div className="flex items-baseline gap-8 mb-20">
+        {/* <div className="flex items-baseline gap-8 mb-20">
           <p
-            className="text-primary text-xs tracking-widest uppercase"
+            className="text-on-primary text-xs tracking-widest uppercase"
             style={{ fontFamily: 'var(--font-label)' }}
           >
             ✦ &nbsp; Skills
           </p>
           <h2
-            className="text-on-surface"
+            className="text-on-primary"
             style={{
               fontFamily: 'var(--font-display)',
               fontWeight: 700,
@@ -299,13 +423,13 @@ function Skills() {
           >
             Tech Stack
           </h2>
-        </div>
+        </div> */}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-12">
           {skills.map(({ category, items }) => (
             <div key={category}>
               <p
-                className="text-on-surface-variant text-xs tracking-widest uppercase mb-6"
+                className="text-on-primary text-xs tracking-widest uppercase mb-6"
                 style={{ fontFamily: 'var(--font-label)' }}
               >
                 {category}
@@ -314,7 +438,7 @@ function Skills() {
                 {items.map((item) => (
                   <span
                     key={item}
-                    className="bg-surface-highest text-on-surface-variant text-xs px-3 py-1.5 tracking-wide"
+                    className="bg-on-primary text-primary text-xs px-3 py-1.5 tracking-wide"
                     style={{ fontFamily: 'var(--font-label)' }}
                   >
                     {item}
@@ -331,63 +455,29 @@ function Skills() {
 
 /* ─── Projects ───────────────────────────────────────────────────── */
 function Projects() {
-  const featured = projects.filter((p) => p.featured);
-  const rest = projects.filter((p) => !p.featured);
+  const cards = projects.slice(0, 3);
 
   return (
-    <section id="projects" className="bg-surface-low py-32 px-8">
+    <section id="projects" className="bg-primary py-32 px-8">
       <div className="max-w-screen-xl mx-auto">
-        <div className="flex items-baseline justify-between mb-20 flex-wrap gap-4">
-          <div className="flex items-baseline gap-8">
-            <p
-              className="text-primary text-xs tracking-widest uppercase"
-              style={{ fontFamily: 'var(--font-label)' }}
-            >
-              ✦ &nbsp; Projects
-            </p>
-            <h2
-              className="text-on-surface"
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontStyle: 'italic',
-                fontWeight: 700,
-                fontSize: 'clamp(2rem, 4vw, 3.5rem)',
-                letterSpacing: '-0.02em',
-              }}
-            >
-              Selected Work
-            </h2>
-          </div>
-          <p
-            className="text-on-surface-variant text-sm"
-            style={{ fontFamily: 'var(--font-body)' }}
-          >
-            {projects.length} projects total
-          </p>
-        </div>
+        <h2
+          className="text-on-primary text-lg text-center mb-14"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontStyle: "italic",
+            fontWeight: 400,
+            fontSize: "clamp(2.5rem, 4.2vw, 4.5rem)",
+            letterSpacing: "-0.02em",
+          }}
+        >
+          Core Projects
+        </h2>
 
-        {/* Featured – large cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-          {featured.slice(0, 2).map((project) => (
-            <ProjectCard key={project.id} project={project} large />
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+          {cards.map((project, idx) => (
+            <ProjectCard key={project.id} project={project} tone={idx % 3} />
           ))}
         </div>
-
-        {/* Third featured – full width */}
-        {featured[2] && (
-          <div className="mb-6">
-            <ProjectCard project={featured[2]} wide />
-          </div>
-        )}
-
-        {/* Rest – smaller cards */}
-        {rest.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {rest.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
-        )}
       </div>
     </section>
   );
@@ -395,82 +485,89 @@ function Projects() {
 
 function ProjectCard({
   project,
-  large,
-  wide,
+  tone,
 }: {
   project: (typeof projects)[0];
-  large?: boolean;
-  wide?: boolean;
+  tone: number;
 }) {
+  const cardTheme = [
+    {
+      background: '#11170C',
+      titleColor: '#DCE67A',
+      bodyColor: '#DCE67A',
+      chipBg: 'rgba(220,230,122,0.14)',
+    },
+    {
+      background: '#E7E3DF',
+      titleColor: '#181818',
+      bodyColor: '#3A3A3A',
+      chipBg: 'rgba(24,24,24,0.08)',
+    },
+    {
+      background: '#050505',
+      titleColor: '#DCE67A',
+      bodyColor: '#DCE67A',
+      chipBg: 'rgba(220,230,122,0.14)',
+    },
+  ][tone];
+  const imageSrc = `/project${tone + 1}.png`;
+
   return (
     <Link
       to={`/projects/${project.id}`}
-      className="group block bg-surface-high overflow-hidden relative"
-      style={{ minHeight: wide ? 280 : large ? 420 : 320 }}
+      className="group flex flex-col transition-transform duration-300"
+      style={{ minHeight: 520, backgroundColor: cardTheme.background }}
     >
-      {/* Gradient background */}
       <div
-        className="absolute inset-0"
-        style={{ background: project.gradient }}
-      />
-
-      {/* Overlay on hover */}
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{ backgroundColor: 'rgba(20,19,19,0.4)' }}
-      />
-
-      {/* Content */}
-      <div className={`relative h-full flex flex-col justify-end p-8 ${wide ? 'lg:flex-row lg:items-end lg:justify-between' : ''}`}>
-        <div>
-          <div className="flex items-center gap-3 mb-4">
-            <span
-              className="text-xs tracking-widest uppercase opacity-70"
-              style={{ fontFamily: 'var(--font-label)', color: project.accentColor }}
-            >
-              {project.year} // {project.role}
-            </span>
-          </div>
-          <h3
-            className="text-on-surface leading-tight mb-2"
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 700,
-              fontSize: large || wide ? 'clamp(1.8rem, 3vw, 2.8rem)' : '1.6rem',
-              letterSpacing: '-0.02em',
-            }}
-          >
-            {project.title}
-          </h3>
-          <p
-            className="text-on-surface-variant text-sm leading-relaxed max-w-sm"
-            style={{ fontFamily: 'var(--font-body)' }}
-          >
-            {project.tagline}
-          </p>
-        </div>
-
-        {/* Arrow indicator */}
-        <div
-          className="mt-6 lg:mt-0 flex-shrink-0 w-10 h-10 flex items-center justify-center border border-on-surface-variant/30 group-hover:border-primary group-hover:bg-primary group-hover:text-on-primary transition-all duration-200"
-          style={{ color: 'var(--color-on-surface)' }}
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M3 13L13 3M13 3H6M13 3V10" stroke="currentColor" strokeWidth="1.5" />
-          </svg>
-        </div>
+        className="w-full mb-10 overflow-hidden shrink-0"
+        style={{
+          height: '40%',
+          minHeight: 170,
+          boxShadow: '0 12px 30px rgba(0,0,0,0.22)',
+        }}
+      >
+        <img
+          src={imageSrc}
+          alt={project.title}
+          className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-102"
+        />
       </div>
 
-      {/* Stack chips – bottom */}
-      <div className="absolute top-6 right-6 flex flex-wrap gap-1 justify-end max-w-[40%]">
+      <h3
+        className="text-center mb-8"
+        style={{
+          fontFamily: 'var(--font-display)',
+          fontStyle: 'italic',
+          fontWeight: 700,
+          fontSize: 'clamp(2rem, 4vw, 3rem)',
+          color: cardTheme.titleColor,
+        }}
+      >
+        {project.title}
+      </h3>
+
+      <p
+        className="text-center leading-tight uppercase"
+        style={{
+          fontFamily: 'var(--font-label)',
+          letterSpacing: '0.04em',
+          fontSize: 'clamp(1rem, 1.6vw, 1.9rem)',
+          color: cardTheme.bodyColor,
+        }}
+      >
+        {project.tagline}
+      </p>
+
+      <div className="mt-10 flex flex-wrap justify-center gap-2">
         {project.stack.slice(0, 3).map((tech) => (
           <span
             key={tech}
-            className="text-xs px-2 py-0.5"
+            className="text-xs px-2 py-1 uppercase"
             style={{
               fontFamily: 'var(--font-label)',
-              backgroundColor: 'rgba(20,19,19,0.6)',
-              color: project.accentColor,
+              letterSpacing: '0.05em',
+              color: cardTheme.bodyColor,
+              backgroundColor: cardTheme.chipBg,
             }}
           >
             {tech}
@@ -481,95 +578,6 @@ function ProjectCard({
   );
 }
 
-/* ─── Experience ─────────────────────────────────────────────────── */
-function Experience() {
-  return (
-    <section id="experience" className="bg-surface py-32 px-8">
-      <div className="max-w-screen-xl mx-auto">
-        <div className="flex items-baseline gap-8 mb-20">
-          <p
-            className="text-primary text-xs tracking-widest uppercase"
-            style={{ fontFamily: 'var(--font-label)' }}
-          >
-            ✦ &nbsp; Experience
-          </p>
-          <h2
-            className="text-on-surface"
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 700,
-              fontSize: 'clamp(2rem, 4vw, 3.5rem)',
-              letterSpacing: '-0.02em',
-            }}
-          >
-            Work History
-          </h2>
-        </div>
-
-        <div>
-          {experience.map((job, i) => (
-            <div
-              key={job.company}
-              className={`grid grid-cols-1 lg:grid-cols-12 gap-8 ${i !== experience.length - 1 ? 'mb-24' : ''}`}
-            >
-              {/* Left – metadata */}
-              <div className="lg:col-span-4">
-                <p
-                  className="text-primary text-xs tracking-widest uppercase mb-3"
-                  style={{ fontFamily: 'var(--font-label)' }}
-                >
-                  {job.period}
-                </p>
-                <h3
-                  className="text-on-surface text-2xl font-bold mb-1"
-                  style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}
-                >
-                  {job.company}
-                </h3>
-                <p
-                  className="text-on-surface-variant text-sm tracking-wide"
-                  style={{ fontFamily: 'var(--font-label)' }}
-                >
-                  {job.role}
-                </p>
-                <p
-                  className="text-on-surface-variant/50 text-xs tracking-widest uppercase mt-1"
-                  style={{ fontFamily: 'var(--font-label)' }}
-                >
-                  {job.location}
-                </p>
-              </div>
-
-              {/* Right – details */}
-              <div className="lg:col-span-8 lg:col-start-6">
-                <p
-                  className="text-on-surface leading-relaxed mb-8 text-base"
-                  style={{ fontFamily: 'var(--font-body)' }}
-                >
-                  {job.description}
-                </p>
-                <ul className="flex flex-col gap-4">
-                  {job.highlights.map((h) => (
-                    <li key={h} className="flex items-start gap-3">
-                      <StarBullet size={12} />
-                      <span
-                        className="text-on-surface-variant text-sm leading-relaxed"
-                        style={{ fontFamily: 'var(--font-body)' }}
-                      >
-                        {h}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ─── Contact ────────────────────────────────────────────────────── */
 function Contact() {
   return (
@@ -577,12 +585,6 @@ function Contact() {
       <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         {/* Left */}
         <div>
-          <p
-            className="text-primary text-xs tracking-widest uppercase mb-8"
-            style={{ fontFamily: 'var(--font-label)' }}
-          >
-            ✦ &nbsp; Contact
-          </p>
           <h2
             className="text-on-surface leading-tight"
             style={{
@@ -756,7 +758,6 @@ export default function Home() {
         <About />
         <Skills />
         <Projects />
-        <Experience />
         <Contact />
       </main>
       <Footer />

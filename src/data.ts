@@ -153,18 +153,22 @@ export const experience: Experience[] = [
 export const skills: Skill[] = [
   {
     category: 'Languages',
-    items: ['TypeScript', 'JavaScript', 'Python', 'SQL', 'Rust'],
+    items: ['TypeScript', 'JavaScript', 'Python', 'Dart', 'SQL'],
   },
   {
-    category: 'Frontend',
-    items: ['React', 'Next.js', 'React Native', 'Tailwind CSS', 'Framer Motion', 'D3.js'],
+    category: 'Frontend & Mobile',
+    items: ['React', 'Next.js', 'React Native', 'Flutter', 'Expo', 'Tailwind CSS', 'D3.js'],
   },
   {
     category: 'Backend',
-    items: ['Node.js', 'FastAPI', 'GraphQL', 'tRPC', 'Prisma', 'PostgreSQL', 'Redis'],
+    items: ['Node.js', 'FastAPI', 'GraphQL', 'tRPC', 'Prisma', 'PostgreSQL', 'MongoDB', 'Redis'],
+  },
+  {
+    category: 'AI & Automation',
+    items: ['OpenAI API', 'LangChain', 'Pinecone', 'Vercel AI SDK'],
   },
   {
     category: 'Infrastructure',
-    items: ['AWS', 'Vercel', 'Docker', 'Kafka', 'GitHub Actions', 'Terraform'],
+    items: ['AWS', 'Vercel', 'Firebase', 'Docker', 'GitHub Actions'],
   },
 ];
