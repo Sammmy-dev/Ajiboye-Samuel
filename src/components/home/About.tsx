@@ -37,12 +37,12 @@ export default function About() {
             {[
               { number: '6+', label: 'Years of Experience' },
               { number: '40+', label: 'Projects Shipped' },
-              { number: '3', label: 'FAANG-tier Companies' },
+              { number: '1', label: 'Happy Developer' },
             ].map(({ number, label }) => (
               <div key={label}>
                 <p
                   className="text-primary text-4xl font-bold"
-                  style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}
+                  style={{ fontFamily: 'var(--font-body)', fontWeight: 700 }}
                 >
                   {number}
                 </p>

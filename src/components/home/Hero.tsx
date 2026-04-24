@@ -3,7 +3,7 @@ import StarBullet from './StarBullet';
 export default function Hero() {
   return (
     <section
-      className="relative h-screen max-h-187.5 flex flex-col justify-end px-8 overflow-hidden"
+      className="relative h-screen max-h-187.5 min-h-160 flex flex-col justify-end px-8 overflow-hidden"
       style={{
         background: 'radial-gradient(ellipse 80% 60% at 50% 0%, #242322 0%, #141313 70%)',
       }}
