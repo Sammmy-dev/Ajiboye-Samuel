@@ -42,17 +42,22 @@ export default function Nav() {
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-transform duration-300"
       style={{
-        backgroundColor: 'rgba(20,19,19,0.72)',
-        backdropFilter: 'blur(24px)',
-        WebkitBackdropFilter: 'blur(24px)',
-        borderBottom: '1px solid rgba(248,246,241,0.06)',
-        transform: isNavVisible ? 'translateY(0)' : 'translateY(-100%)',
+        backgroundColor: "rgba(20,19,19,0.72)",
+        backdropFilter: "blur(24px)",
+        WebkitBackdropFilter: "blur(24px)",
+        borderBottom: "1px solid rgba(248,246,241,0.06)",
+        transform: isNavVisible ? "translateY(0)" : "translateY(-100%)",
       }}
     >
-      <nav className="max-w-screen-xl mx-auto px-8 min-h-16 flex items-center justify-between relative">
+      <nav className="max-w-screen-xl max-sm:px-2 mx-auto min-h-16 flex px-8 items-center justify-between relative">
         <span
           className="text-whitetext-sm tracking-widest uppercase"
-          style={{ fontFamily: 'var(--font-label)', fontWeight: 100, fontStyle: '', letterSpacing: '0.0em' }}
+          style={{
+            fontFamily: "var(--font-label)",
+            fontWeight: 100,
+            fontStyle: "",
+            letterSpacing: "0.0em",
+          }}
         >
           Ajiboye Samuel.
         </span>
@@ -62,10 +67,18 @@ export default function Nav() {
           className="md:hidden inline-flex items-center justify-center w-10 h-10 text-on-surface hover:text-primary transition-colors duration-200"
           aria-expanded={isMenuOpen}
           aria-controls="mobile-nav-menu"
-          aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-label={
+            isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+          }
           onClick={() => setIsMenuOpen((prev) => !prev)}
         >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            aria-hidden="true"
+          >
             {isMenuOpen ? (
               <path
                 d="M5 5L15 15M15 5L5 15"
@@ -90,7 +103,10 @@ export default function Nav() {
               <a
                 href={`#${l.toLowerCase()}`}
                 className="text-on-surface-variant hover:text-primary transition-colors duration-200 text-xs tracking-widest uppercase"
-                style={{ fontFamily: 'var(--font-label)', letterSpacing: '0.14em' }}
+                style={{
+                  fontFamily: "var(--font-label)",
+                  letterSpacing: "0.14em",
+                }}
               >
                 {l}
               </a>
@@ -100,7 +116,7 @@ export default function Nav() {
 
         <div
           id="mobile-nav-menu"
-          className={`md:hidden absolute top-full left-0 right-0 bg-surface/95 backdrop-blur-xl border-b border-on-surface-variant/15 transition-all duration-200 overflow-hidden ${isMenuOpen ? 'max-h-80 opacity-100 py-4' : 'max-h-0 opacity-0 py-0 pointer-events-none'}`}
+          className={`md:hidden absolute top-full left-0 right-0 bg-surface/95 backdrop-blur-xl border-b border-on-surface-variant/15 transition-all duration-200 overflow-hidden ${isMenuOpen ? "max-h-80 opacity-100 py-4" : "max-h-0 opacity-0 py-0 pointer-events-none"}`}
           aria-hidden={!isMenuOpen}
         >
           <ul className="px-8 flex flex-col gap-4">
@@ -109,7 +125,10 @@ export default function Nav() {
                 <a
                   href={`#${l.toLowerCase()}`}
                   className="block text-on-surface-variant hover:text-primary transition-colors duration-200 text-sm tracking-widest uppercase py-2"
-                  style={{ fontFamily: 'var(--font-label)', letterSpacing: '0.14em' }}
+                  style={{
+                    fontFamily: "var(--font-label)",
+                    letterSpacing: "0.14em",
+                  }}
                   onClick={closeMenu}
                 >
                   {l}

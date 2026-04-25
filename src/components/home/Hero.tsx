@@ -3,20 +3,21 @@ import StarBullet from './StarBullet';
 export default function Hero() {
   return (
     <section
-      className="relative h-screen max-h-187.5 min-h-160 flex flex-col justify-end px-8 overflow-hidden"
+      className="relative h-screen max-h-187.5 min-h-160 flex flex-col justify-end px-4 overflow-hidden"
       style={{
-        background: 'radial-gradient(ellipse 80% 60% at 50% 0%, #242322 0%, #141313 70%)',
+        background:
+          "radial-gradient(ellipse 80% 60% at 50% 0%, #242322 0%, #141313 70%)",
       }}
     >
       <div className="absolute top-20 left-0 right-0 px-8 pt-8 flex justify-between items-start max-w-screen-xl mx-auto w-full">
         <div
-          style={{ fontFamily: 'var(--font-label)' }}
+          style={{ fontFamily: "var(--font-label)" }}
           className="text-on-surface-variant text-xs max-sm:text-[10px] tracking-widest uppercase"
         >
           Portfolio // 2026
         </div>
         <div
-          style={{ fontFamily: 'var(--font-label)' }}
+          style={{ fontFamily: "var(--font-label)" }}
           className="text-on-surface-variant text-xs max-sm:text-[10px] tracking-widest uppercase text-right"
         >
           Lagos, Nigeria
@@ -38,8 +39,8 @@ export default function Hero() {
 
       <div className="max-w-screen-xl mx-auto w-full">
         <p
-          className="absolute top-15 left-0 right-0 px-8 pt-8 flex justify-between items-start max-w-screen-xl mx-auto w-full text-on-surface-variant max-sm:text-[10px] text-xs tracking-widest uppercase"
-          style={{ fontFamily: 'var(--font-label)' }}
+          className="absolute top-15 left-0 right-0 pt-8 px-8 flex justify-between items-start max-w-screen-xl mx-auto w-full text-on-surface-variant max-sm:text-[10px] text-xs tracking-widest uppercase"
+          style={{ fontFamily: "var(--font-label)" }}
         >
           Software Developer
         </p>
@@ -51,13 +52,13 @@ export default function Hero() {
           <h1
             className="leading-none"
             style={{
-              fontFamily: 'var(--font-display)',
-              fontStyle: 'italic',
+              fontFamily: "var(--font-display)",
+              fontStyle: "italic",
               fontWeight: 700,
-              fontSize: 'clamp(4rem, 12vw, 10rem)',
-              letterSpacing: '-0.02em',
-              color: '#F1F27C',
-              position: 'relative',
+              fontSize: "clamp(4rem, 12vw, 10rem)",
+              letterSpacing: "-0.02em",
+              color: "#F1F27C",
+              position: "relative",
               zIndex: 5,
             }}
           >
@@ -67,14 +68,14 @@ export default function Hero() {
             aria-hidden="true"
             className="leading-none pointer-events-none"
             style={{
-              fontFamily: 'var(--font-display)',
-              fontStyle: 'italic',
+              fontFamily: "var(--font-display)",
+              fontStyle: "italic",
               fontWeight: 700,
-              fontSize: 'clamp(4rem, 12vw, 10rem)',
-              letterSpacing: '-0.02em',
-              color: 'transparent',
-              WebkitTextStroke: '1.5px #F1F27C',
-              position: 'absolute',
+              fontSize: "clamp(4rem, 12vw, 10rem)",
+              letterSpacing: "-0.02em",
+              color: "transparent",
+              WebkitTextStroke: "1.5px #F1F27C",
+              position: "absolute",
               top: 0,
               left: 0,
               zIndex: 15,
@@ -91,13 +92,13 @@ export default function Hero() {
           <h1
             className="leading-none"
             style={{
-              fontFamily: 'var(--font-display)',
-              fontStyle: 'italic',
+              fontFamily: "var(--font-display)",
+              fontStyle: "italic",
               fontWeight: 700,
-              fontSize: 'clamp(4rem, 12vw, 10rem)',
-              letterSpacing: '-0.02em',
-              color: '#F1F27C',
-              position: 'relative',
+              fontSize: "clamp(4rem, 12vw, 10rem)",
+              letterSpacing: "-0.02em",
+              color: "#F1F27C",
+              position: "relative",
               zIndex: 5,
             }}
           >
@@ -107,14 +108,14 @@ export default function Hero() {
             aria-hidden="true"
             className="leading-none pointer-events-none"
             style={{
-              fontFamily: 'var(--font-display)',
-              fontStyle: 'italic',
+              fontFamily: "var(--font-display)",
+              fontStyle: "italic",
               fontWeight: 700,
-              fontSize: 'clamp(4rem, 12vw, 10rem)',
-              letterSpacing: '-0.02em',
-              color: 'transparent',
-              WebkitTextStroke: '1.5px #F1F27C',
-              position: 'absolute',
+              fontSize: "clamp(4rem, 12vw, 10rem)",
+              letterSpacing: "-0.02em",
+              color: "transparent",
+              WebkitTextStroke: "1.5px #F1F27C",
+              position: "absolute",
               top: 0,
               left: 0,
               right: 0,
@@ -125,12 +126,12 @@ export default function Hero() {
           </h1>
         </div>
 
-        <div className="flex items-end w-full max-md:bottom-[400px] relative z-20">
+        <div className="flex items-end w-full  max-md:bottom-[400px] relative z-20">
           <div className="flex w-full justify-between absolute max-md:bottom-0">
             <a
               href="#projects"
               className="inline-flex items-center gap-3 text-primary py-3 max-sm:text-xs text-sm tracking-widest uppercase font-semibold hover:text-on-surface transition-colors duration-200"
-              style={{ fontFamily: 'var(--font-label)' }}
+              style={{ fontFamily: "var(--font-label)" }}
             >
               View Work
               <svg
@@ -150,7 +151,7 @@ export default function Hero() {
             <a
               href="#contact"
               className="inline-flex items-center gap-3 text-on-surface py-3 max-md:top-[15px] relative  max-sm:text-xs text-sm tracking-widest uppercase hover:text-primary transition-colors duration-200"
-              style={{ fontFamily: 'var(--font-label)' }}
+              style={{ fontFamily: "var(--font-label)" }}
             >
               Get in Touch
               <svg
