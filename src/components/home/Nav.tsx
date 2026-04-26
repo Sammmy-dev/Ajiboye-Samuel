@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Nav() {
   const links = ['About', 'Projects', 'Contact'];
@@ -40,7 +41,7 @@ export default function Nav() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-transform duration-300"
+      className="fixed top-0 left-0 right-0 z-50 transition-transform px-4 sm:px-8 duration-300"
       style={{
         backgroundColor: "rgba(20,19,19,0.72)",
         backdropFilter: "blur(24px)",
@@ -49,9 +50,10 @@ export default function Nav() {
         transform: isNavVisible ? "translateY(0)" : "translateY(-100%)",
       }}
     >
-      <nav className="max-w-screen-xl max-sm:px-2 mx-auto min-h-16 flex px-8 items-center justify-between relative">
-        <span
-          className="text-whitetext-sm tracking-widest uppercase"
+      <nav className="max-w-screen-xl mx-auto min-h-16 flex items-center justify-between relative">
+        <Link
+          to="/"
+          className="text-whitetext-sm tracking-widest uppercase hover:text-primary transition-colors duration-200"
           style={{
             fontFamily: "var(--font-label)",
             fontWeight: 100,
@@ -60,7 +62,7 @@ export default function Nav() {
           }}
         >
           Ajiboye Samuel.
-        </span>
+        </Link>
 
         <button
           type="button"
@@ -119,7 +121,7 @@ export default function Nav() {
           className={`md:hidden absolute top-full left-0 right-0 bg-surface/95 backdrop-blur-xl border-b border-on-surface-variant/15 transition-all duration-200 overflow-hidden ${isMenuOpen ? "max-h-80 opacity-100 py-4" : "max-h-0 opacity-0 py-0 pointer-events-none"}`}
           aria-hidden={!isMenuOpen}
         >
-          <ul className="px-8 flex flex-col gap-4">
+          <ul className="px-4 sm:px-8 flex flex-col gap-4">
             {links.map((l) => (
               <li key={l}>
                 <a

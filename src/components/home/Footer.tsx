@@ -1,8 +1,20 @@
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 import StarBullet from './StarBullet';
 
 export default function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    gsap.from(footerRef.current, {
+      opacity: 0, y: 20, duration: 0.6, ease: 'power2.out',
+      scrollTrigger: { trigger: footerRef.current, start: 'top 95%' },
+    });
+  }, { scope: footerRef });
+
   return (
-    <footer className="bg-surface py-12 px-8">
+    <footer ref={footerRef} className="bg-surface py-12 px-4 sm:px-8">
       <div className="max-w-screen-xl mx-auto flex items-center justify-between flex-wrap gap-4">
         <span
           className="text-on-surface-variant text-xs tracking-widest uppercase"

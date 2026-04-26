@@ -1,7 +1,11 @@
 import { getCalApi } from '@calcom/embed-react';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 export default function Contact() {
+  const sectionRef = useRef<HTMLElement>(null);
+
   useEffect(() => {
     (async function () {
       const cal = await getCalApi({ namespace: '30min' });
@@ -20,12 +24,22 @@ export default function Contact() {
     })();
   }, []);
 
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
+    });
+    tl.from('.contact-heading', { opacity: 0, y: 60, duration: 0.9, ease: 'power3.out' })
+      .from(['.contact-desc', '.contact-links'], { opacity: 0, y: 40, duration: 0.8, ease: 'power3.out', stagger: 0.15 }, '-=0.5')
+      .from('.contact-link-item', { opacity: 0, x: -20, duration: 0.6, ease: 'power2.out', stagger: 0.1 }, '-=0.4')
+      .from('.contact-card', { opacity: 0, y: 40, duration: 0.9, ease: 'power3.out' }, '-=0.8');
+  }, { scope: sectionRef });
+
   return (
-    <section id="contact" className="bg-olive py-32 px-8">
+    <section ref={sectionRef} id="contact" className="bg-olive py-32 px-4 sm:px-8">
       <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         <div>
           <h2
-            className="text-on-surface leading-tight"
+            className="contact-heading text-on-surface leading-tight"
             style={{
               fontFamily: "var(--font-display)",
               fontStyle: "italic",
@@ -41,14 +55,14 @@ export default function Contact() {
             &nbsp;great.
           </h2>
           <p
-            className="text-on-surface-variant mt-6 leading-relaxed text-base"
+            className="contact-desc text-on-surface-variant mt-6 leading-relaxed text-base"
             style={{ fontFamily: "var(--font-body)" }}
           >
             Whether you have a role, a project, or just an idea — I'd love to
             hear it. My inbox is always open.
           </p>
 
-          <div className="mt-12 flex flex-col gap-4">
+          <div className="contact-links mt-12 flex flex-col gap-4">
             {[
               {
                 label: "Email",
@@ -71,7 +85,7 @@ export default function Contact() {
                 href: "https://x.com/Ajiboye_sat",
               },
             ].map(({ label, value, href }) => (
-              <div key={label} className="flex items-center gap-6">
+              <div key={label} className="contact-link-item flex items-center gap-6">
                 <span
                   className="text-on-surface-variant/60 text-xs tracking-widest uppercase w-24 flex-shrink-0"
                   style={{ fontFamily: "var(--font-label)" }}
@@ -95,7 +109,7 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="bg-surface-low p-8 md:p-10 border border-on-surface-variant/10">
+        <div className="contact-card bg-surface-low p-8 md:p-10 border border-on-surface-variant/10">
           <div className="flex flex-col h-full">
             <h3
               className="text-on-surface mb-4"

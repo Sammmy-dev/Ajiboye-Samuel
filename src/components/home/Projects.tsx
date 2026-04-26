@@ -1,4 +1,6 @@
 import { useRef, useState } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 import { Link } from 'react-router-dom';
 import { projects } from '../../data';
 
@@ -20,11 +22,19 @@ export default function Projects() {
     });
   };
 
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' },
+    });
+    tl.from('.projects-heading', { opacity: 0, y: 40, duration: 0.8, ease: 'power3.out' })
+      .from('.project-row', { opacity: 0, y: 30, duration: 0.7, ease: 'power3.out', stagger: 0.12 }, '-=0.4');
+  }, { scope: sectionRef });
+
   return (
-    <section ref={sectionRef} id="projects" className="relative bg-surface py-32 px-8">
+    <section ref={sectionRef} id="projects" className="relative bg-surface py-32 px-4 sm:px-8">
       <div className="max-w-screen-xl mx-auto">
         <h2
-          className="text-on-surface text-lg text-center mb-14"
+          className="projects-heading text-on-surface text-lg text-center mb-14"
           style={{
             fontFamily: 'var(--font-display)',
             fontStyle: 'italic',
@@ -36,12 +46,12 @@ export default function Projects() {
           Core Projects
         </h2>
 
-        <div className="border-y border-on-surface-variant/30">
+        <div className=" border- border-on-surface-variant/30">
           {cards.map((project, idx) => (
             <Link
               key={project.id}
               to={`/projects/${project.id}`}
-              className="grid grid-cols-[1fr_auto] md:grid-cols-[1.3fr_1fr_auto] items-center gap-4 md:gap-8 py-8 md:py-10 border-b border-on-surface-variant/20 last:border-b-0 hover:bg-on-surface/5 transition-colors duration-200"
+              className="project-row grid grid-cols-[1fr_auto] md:grid-cols-[1.3fr_1fr_auto] items-center gap-4 md:gap-8 py-8 md:py-10 border-b border-on-surface-variant/20 last:border-b-0 hover:bg-on-surface/5 transition-colors duration-200"
               onMouseEnter={() => setActiveIndex(idx)}
               onMouseMove={handleMove}
               onMouseLeave={() => setActiveIndex(null)}
