@@ -43,13 +43,16 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen max-h-187.5 min-h-160 flex flex-col justify-end px-4 sm:px-8 overflow-hidden"
+      className="relative h-screen max-h-187.5 px-4 sm:px-8 min-h-160 flex flex-col justify-end overflow-hidden"
       style={{
         background:
           "radial-gradient(ellipse 80% 60% at 50% 0%, #242322 0%, #141313 70%)",
       }}
     >
-      <div ref={metaRef} className="absolute top-20 left-0 right-0 pt-8 flex justify-between items-start max-w-screen-xl mx-auto w-full">
+      <div
+        ref={metaRef}
+        className="absolute top-20 left-0 right-0 max-w-screen-xl mx-auto pt-8 px-4 sm:px-8 flex justify-between items-start"
+      >
         <div
           style={{ fontFamily: "var(--font-label)" }}
           className="text-on-surface-variant text-xs max-sm:text-[10px] tracking-widest uppercase"
@@ -81,7 +84,7 @@ export default function Hero() {
       <div className="max-w-screen-xl mx-auto w-full">
         <p
           ref={labelRef}
-          className="absolute top-15 left-0 right-0 pt-8 flex justify-between items-start max-w-screen-xl mx-auto w-full text-on-surface-variant max-sm:text-[10px] text-xs tracking-widest uppercase"
+          className="absolute top-15 left-0 right-0 pt-8 px-4 sm:px-8 flex justify-between items-start max-w-screen-xl mx-auto w-full text-on-surface-variant max-sm:text-[10px] text-xs tracking-widest uppercase"
           style={{ fontFamily: "var(--font-label)" }}
         >
           Software Developer
@@ -173,7 +176,10 @@ export default function Hero() {
         </div>
 
         <div className="flex items-end w-full  max-md:bottom-[400px] relative z-20">
-          <div ref={ctasRef} className="flex w-full justify-between absolute max-md:bottom-0">
+          <div
+            ref={ctasRef}
+            className="flex w-full justify-between absolute max-md:bottom-0"
+          >
             <a
               href="#projects"
               className="inline-flex items-center gap-3 text-primary py-3 max-sm:text-xs text-sm tracking-widest uppercase font-semibold hover:text-on-surface transition-colors duration-200"
