@@ -57,8 +57,8 @@ export const projects: Project[] = [
     accentColor: "#BF3A2B",
     year: "2026",
     role: "Full-Stack Developer",
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://www.tbmistudios.com.ng/",
+    githubUrl: "https://github.com/Sammmy-dev/TBMI-studio",
     featured: true,
   },
   {
@@ -86,8 +86,8 @@ export const projects: Project[] = [
     accentColor: "#CC0000",
     year: "2026",
     role: "Full-Stack Developer",
-    liveUrl: "https://far-5eez.vercel.app",
-    githubUrl: "#",
+    liveUrl: "https://www.flavourairhisresources.com.ng/",
+    githubUrl: "https://github.com/Sammmy-dev/FAR",
     featured: true,
   },
   {
@@ -113,8 +113,8 @@ export const projects: Project[] = [
     accentColor: "#0ea5e9",
     year: "2025",
     role: "Frontend Developer",
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://skyvar.vercel.app/",
+    githubUrl: "https://github.com/Sammmy-dev/ore-port",
     featured: false,
   },
   // {

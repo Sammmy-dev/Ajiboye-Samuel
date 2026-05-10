@@ -169,7 +169,7 @@ export default function ProjectDetail() {
             </div>
           </section>
 
-          <section className="pt-10 space-y-4">
+          {/* <section className="pt-10 space-y-4">
             <img
               src={showcaseImageOne}
               alt={`${project.title} showcase`}
@@ -180,7 +180,7 @@ export default function ProjectDetail() {
               alt={`${project.title} detail`}
               className="pd-showcase-img w-full h-[360px] sm:h-[500px] lg:h-[620px] object-cover"
             />
-          </section>
+          </section> */}
 
           <section className="pt-16">
             <Link
