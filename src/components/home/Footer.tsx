@@ -15,7 +15,7 @@ export default function Footer() {
 
   return (
     <footer ref={footerRef} className="bg-surface py-12 px-4 sm:px-8">
-      <div className="max-w-screen-xl mx-auto flex items-center justify-between flex-wrap gap-4">
+      <div className="max-w-screen-xl mx-auto flex items-center justify-between flex-wrap gap-4 max-sm:flex-col max-sm:items-center max-sm:text-center">
         <span
           className="text-on-surface-variant text-xs tracking-widest uppercase"
           style={{ fontFamily: 'var(--font-label)' }}

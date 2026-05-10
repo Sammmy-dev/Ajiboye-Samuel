@@ -63,7 +63,7 @@ export default function Hero() {
           style={{ fontFamily: "var(--font-label)" }}
           className="text-on-surface-variant text-xs max-sm:text-[10px] tracking-widest uppercase text-right"
         >
-          Lagos, Nigeria
+          Osun, Nigeria
           <br />
           Available for hire
         </div>

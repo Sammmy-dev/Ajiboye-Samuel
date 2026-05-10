@@ -19,7 +19,7 @@ export default function About() {
       <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         <div>
           <h2
-            className="about-heading text-on-surface leading-tight"
+            className="about-heading text-on-surface leading-tight max-sm:text-center"
             style={{
               fontFamily: 'var(--font-display)',
               fontStyle: 'italic',
@@ -36,25 +36,25 @@ export default function About() {
 
         <div className="">
           <p
-            className="about-para-1 text-on-surface leading-relaxed mb-6 text-lg"
+            className="about-para-1 text-on-surface leading-relaxed mb-6 text-lg max-sm:text-center"
             style={{ fontFamily: 'var(--font-body)' }}
           >
             I'm a full-stack web and mobile app developer who helps startups and companies build scalable products — from MVP to production. I deliver high-performance web apps, cross-platform mobile apps, and AI-powered features that help businesses launch faster, operate efficiently, and grow confidently.
           </p>
           <p
-            className="about-para-2 text-on-surface-variant leading-relaxed text-base"
+            className="about-para-2 text-on-surface-variant leading-relaxed text-base max-sm:text-center"
             style={{ fontFamily: 'var(--font-body)' }}
           >
             My stack spans React, Node.js, TypeScript, React Native, Flutter, and PostgreSQL. I care as much about secure backend architecture and API design as I do about clean, responsive UI — writing maintainable code that scales and communicating clearly every step of the way.
           </p>
 
-          <div className="flex flex-wrap gap-6 mt-12">
+          <div className="flex flex-wrap gap-6 mt-12 max-sm:justify-center">
             {[
-              { number: '6+', label: 'Years of Experience' },
-              { number: '40+', label: 'Projects Shipped' },
+              { number: '5+', label: 'Years of Experience' },
+              { number: '10+', label: 'Projects Shipped' },
               { number: '1', label: 'Happy Developer' },
             ].map(({ number, label }) => (
-              <div key={label} className="about-stat">
+              <div key={label} className="about-stat max-sm:text-center">
                 <p
                   className="text-primary text-4xl font-bold"
                   style={{ fontFamily: 'var(--font-body)', fontWeight: 700 }}

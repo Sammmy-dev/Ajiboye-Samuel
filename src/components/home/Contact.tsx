@@ -39,7 +39,7 @@ export default function Contact() {
       <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         <div>
           <h2
-            className="contact-heading text-on-surface leading-tight"
+            className="contact-heading text-on-surface leading-tight max-sm:text-center"
             style={{
               fontFamily: "var(--font-display)",
               fontStyle: "italic",
@@ -55,14 +55,14 @@ export default function Contact() {
             &nbsp;great.
           </h2>
           <p
-            className="contact-desc text-on-surface-variant mt-6 leading-relaxed text-base"
+            className="contact-desc text-on-surface-variant mt-6 leading-relaxed text-base max-sm:text-center"
             style={{ fontFamily: "var(--font-body)" }}
           >
             Whether you have a role, a project, or just an idea — I'd love to
             hear it. My inbox is always open.
           </p>
 
-          <div className="contact-links mt-12 flex flex-col gap-4">
+          <div className="contact-links mt-12 flex flex-col gap-4 max-sm:items-center">
             {[
               {
                 label: "Email",
@@ -85,7 +85,7 @@ export default function Contact() {
                 href: "https://x.com/Ajiboye_sat",
               },
             ].map(({ label, value, href }) => (
-              <div key={label} className="contact-link-item flex items-center gap-6">
+              <div key={label} className="contact-link-item flex items-center gap-6 max-sm:flex-col max-sm:gap-1 max-sm:text-center">
                 <span
                   className="text-on-surface-variant/60 text-xs tracking-widest uppercase w-24 flex-shrink-0"
                   style={{ fontFamily: "var(--font-label)" }}
