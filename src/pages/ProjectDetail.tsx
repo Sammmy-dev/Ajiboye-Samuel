@@ -17,8 +17,8 @@ export default function ProjectDetail() {
   const projectIndex = projects.findIndex((p) => p.id === project.id);
   const imagePool = ['/project1.png', '/project2.png', '/project3.png'];
   const heroImage = imagePool[projectIndex % imagePool.length];
-  const showcaseImageOne = imagePool[(projectIndex + 1) % imagePool.length];
-  const showcaseImageTwo = imagePool[(projectIndex + 2) % imagePool.length];
+  // const showcaseImageOne = imagePool[(projectIndex + 1) % imagePool.length];
+  // const showcaseImageTwo = imagePool[(projectIndex + 2) % imagePool.length];
   const nextProject = projects[(projectIndex + 1) % projects.length];
 
   const pageRef = useRef<HTMLDivElement>(null);
