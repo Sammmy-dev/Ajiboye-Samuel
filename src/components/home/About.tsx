@@ -50,7 +50,7 @@ export default function About() {
 
           <div className="flex flex-wrap gap-6 mt-12 max-sm:justify-center">
             {[
-              { number: '5+', label: 'Years of Experience' },
+              { number: '4+', label: 'Years of Experience' },
               { number: '10+', label: 'Projects Shipped' },
               { number: '1', label: 'Happy Developer' },
             ].map(({ number, label }) => (
